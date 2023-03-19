@@ -4,10 +4,13 @@ pipeline {
 
     stages {
 
-        stage("build") {
+        stage("install") {
             
             steps {
-                echo 'building the application...'
+                echo 'install dependencies...'
+                nodejs('Node-18.12') {
+                    sh 'npm install'
+                }
             }
         }
 
