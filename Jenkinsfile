@@ -4,12 +4,12 @@ pipeline {
 
     stages {
 
-        stage("install") {
+        stage("build-docker") {
             
             steps {
                 echo 'install dependencies...'
-                nodejs('Node-18.12') {
-                    sh 'npm install'
+                nodejs('docker') {
+                    sh 'docker build -t wwj2547/docker-react-ci -f Dockerfile.dev .'
                 }
             }
         }
@@ -18,6 +18,9 @@ pipeline {
             
             steps {
                 echo 'testing the application...'
+                nodejs('docker') {
+                    sh 'docker run wwj2547/docker-react-ci npm run test -- --coverage'
+                }
             }
         }
 
